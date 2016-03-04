@@ -3,6 +3,7 @@ requirejs.config({
     paths: {
         /* External libs */
         Stats: "../libs/Stats/Stats",
+        requestAnimationFrame: "../libs/requestAnimationFrame/requestAnimationFrame",
         jquery: "../libs/jquery/jquery.min",
         underscore: "../libs/underscore/underscore",
         howl: "../libs/howler/howler.min",
@@ -32,6 +33,6 @@ requirejs.config({
     urlArgs: "d=" + Date.now()
 });
 
-require (["requirejs-domready"], function (domready) {
-
+require (["requirejs-domready", "gameloop"], function (domready, gameloop) {
+    gameloop.init();
 });
