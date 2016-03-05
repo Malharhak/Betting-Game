@@ -1,6 +1,6 @@
 define ([], function () {
     'use strict';
-    
+
     var Point = function (x, y) {
         // If the first parameter is another point, use it
         if (typeof x == "object") {
@@ -16,4 +16,6 @@ define ([], function () {
         this.x = x;
         this.y = y;
     };
+
+    return Point;
 });

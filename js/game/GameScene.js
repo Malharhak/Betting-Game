@@ -1,4 +1,4 @@
-define (["entities/world", "entities/Entity"], function (world, Entity) {
+define (["entities/world", "entities/Entity", "graphics/canvas"], function (world, Entity, canvas) {
 
     var GameScene = function () {
         this.entitiesList = undefined;
@@ -27,6 +27,8 @@ define (["entities/world", "entities/Entity"], function (world, Entity) {
     };
 
     GameScene.prototype._render = function () {
+        canvas.ctx.fillStyle = "white";
+        canvas.ctx.fillRect(0, 0, canvas.width, canvas.height);
         world.render();
         if (typeof this.update == "function") {
             this.render();

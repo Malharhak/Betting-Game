@@ -7,6 +7,8 @@ define (["jquery", "graphics/Point", "graphics/Rectangle"], function ($, Point, 
         this.containerId = config.containerId;
         this.width = config.width;
         this.height = config.height;
+        this.cssWidth = this.width;
+        this.cssHeight = this.height;
         this.aspectRatio = config.width / config.height;
         this.setupCanvas();
         this.setupCanvasResizing();
@@ -41,6 +43,8 @@ define (["jquery", "graphics/Point", "graphics/Rectangle"], function ($, Point, 
             left    : bounds.x + 'px',
             top     : bounds.y + 'px'
         });
+        this.cssWidth = bounds.width;
+        this.cssHeight = bounds.height;
     };
 
     Canvas.prototype.getCanvasBoundsForNewSize = function (screenWidth, screenHeight) {
@@ -58,8 +62,7 @@ define (["jquery", "graphics/Point", "graphics/Rectangle"], function ($, Point, 
             bounds.y = Math.floor ((screenHeight - bounds.height) / 2);
         }
         return bounds;
-
-    }
+    };
 
     return new Canvas();
 });

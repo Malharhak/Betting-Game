@@ -1,5 +1,5 @@
-define (["requestAnimationFrame", "loading/loadingScreen", "game/game", "data/gameScenes"], 
-function (requestAnimationFrame, loadingScreen, game, gameScenes) {
+define (["requestAnimationFrame", "loading/loadingScreen", "game/game", "data/gameScenes", "inputs/inputs"], 
+function (requestAnimationFrame, loadingScreen, game, gameScenes, inputs) {
 
     var gameloop = {};
     var currentScene = gameScenes.defaultScene;
@@ -28,6 +28,7 @@ function (requestAnimationFrame, loadingScreen, game, gameScenes) {
             currentScene._update();
             currentScene._render();   
         }
+        inputs._postInputs();
         requestAnimationFrame(loop);
     }
 
