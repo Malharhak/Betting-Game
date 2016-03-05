@@ -1,11 +1,28 @@
 /** Entity class
 - Base class for all game entities **/
-define (["Transform", "world", "utils"], function (Transform, world, utils) {
+define (["components/Transform", "entities/world", "utils", "components/componentsLoader"], 
+function (Transform, world, utils, componentsLoader) {
     var Entity = function () {
         this._id = utils.guid();
         this.transform = new Transform();
         this.components = {};
         world.addEntity(this);
+    };
+
+    Entity.prototype.load = function (data) {
+        for (var componentType in data.components) {
+            var ComponentClass = componentsLoader.loadComponentClass(componentType);
+            var component = new ComponentClass(data.components[componentType]);
+            this.addComponent(componentType, component);
+        }
+    };
+
+    Entity.prototype.sendMessage = function (eventName) {
+        for (var i in this.components) {
+            if (typeof this.components[i][eventName] == "function") {
+                this.components[i][eventName]();
+            }
+        }
     };
 
     Entity.prototype.destroy = function () {

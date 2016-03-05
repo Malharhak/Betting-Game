@@ -1,5 +1,5 @@
-define(["maths/Vector2", "components/Component"], 
-function (Vector2, Component) {
+define(["maths/Vector2", "components/Component", "components/ComponentType"], 
+function (Vector2, Component, ComponentType) {
 
     var Transform = function () {
         this._addToWorld();
@@ -23,11 +23,11 @@ function (Vector2, Component) {
     // World attributes are the local position, rotation, scale,
     // But with the parent's attributes added to them 
     Transform.prototype.getWorldPosition = function () {
-        var worldPosition = new Vector2();
-        worldPosition = worldPosition.add(this.position);
+        var worldPosition = new Vector2(this.position);
         if (typeof this.parent == "object") {
             worldPosition = worldPosition.add(this.parent.getWorldPosition());
         }
+        return worldPosition;
     };
 
     Transform.prototype.getWorldRotation = function () {
@@ -35,6 +35,7 @@ function (Vector2, Component) {
         if (typeof this.parent == "object") {
             worldRotation = worldRotation + this.parent.getWorldRotation();
         }
+        return worldRotation;
     };
 
     Transform.prototype.getWorldScale = function () {
@@ -42,6 +43,7 @@ function (Vector2, Component) {
         if (typeof this.parent == "object") {
             worldScale = worldScale * this.parent.getWorldScale();
         }
+        return worldScale;
     };
 
     return Transform;

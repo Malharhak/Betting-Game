@@ -1,7 +1,8 @@
 define ([], function () {
     var ComponentType = {
-        Transform: "transform"
+        Transform: "transform",
         Renderer: "renderer",
+        Inputable: "inputable"
     };
 
     return ComponentType;

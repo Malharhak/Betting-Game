@@ -1,4 +1,4 @@
-define (["jquery", "graphics/Point"], function ($, Point) {
+define (["jquery", "graphics/Point", "graphics/Rectangle"], function ($, Point, Rectangle) {
     var Canvas = function () {
 
     };
@@ -8,17 +8,18 @@ define (["jquery", "graphics/Point"], function ($, Point) {
         this.width = config.width;
         this.height = config.height;
         this.aspectRatio = config.width / config.height;
-        this.ctx = this.canvas[0].getContext('2d');
+        this.setupCanvas();
+        this.setupCanvasResizing();
     };
 
     Canvas.prototype.setupCanvas = function () {
-        this.container = $(config.gameContainer);
+        this.container = $(this.containerId);
         this.canvas = $("<canvas />").appendTo (this.container).attr({
-            width : config.width,
-            height : config.height,
-            id : config.canvasId,
+            width : this.width,
+            height : this.height,
             tabIndex : 1
         }).addClass('gameCanvas');
+        this.ctx = this.canvas[0].getContext('2d');
     };
     
     Canvas.prototype.setupCanvasResizing = function () {
@@ -43,18 +44,18 @@ define (["jquery", "graphics/Point"], function ($, Point) {
     };
 
     Canvas.prototype.getCanvasBoundsForNewSize = function (screenWidth, screenHeight) {
-        var newRatio = width / height;
-        var bounds = new Rectangle(0, 0, width, height);
+        var newRatio = screenWidth / screenHeight;
+        var bounds = new Rectangle(0, 0, screenWidth, screenHeight);
 
         // If the window is too large, reduce the width of the canvas to fit the screen
         if (newRatio > this.aspectRatio) {
             bounds.width = Math.floor(screenHeight * this.aspectRatio);
-            bounds.x = Math.floor((screenWidth - newWidth) / 2); // Place the canvas at the middle
+            bounds.x = Math.floor((screenWidth - bounds.width) / 2); // Place the canvas at the middle
         } 
         // Otherwise, reduce its height
         else if (newRatio <= this.aspectRatio) {
             bounds.height = Math.floor (screenWidth / this.aspectRatio);
-            bounds.y = Math.floor ((screenHeight - newHeight) / 2);
+            bounds.y = Math.floor ((screenHeight - bounds.height) / 2);
         }
         return bounds;
 

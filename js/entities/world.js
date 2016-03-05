@@ -4,6 +4,23 @@ define ([], function () {
         this.components = {};
     };
 
+    World.prototype.empty = function () {
+        this.entities = {};
+        this.components = {};
+    };
+
+    World.prototype.update = function () {
+        for (var i in this.entities) {
+            this.entities[i].sendMessage("update");
+        }
+    };
+
+    World.prototype.render = function () {
+        for (var i in this.entities) {
+            this.entities[i].sendMessage("render");
+        }
+    };
+
     World.prototype.addComponent = function (componentType, component) {
         if (typeof this.components[componentType] !== "object") {
             this.components[componentType] = {};

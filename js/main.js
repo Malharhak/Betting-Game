@@ -5,16 +5,12 @@ requirejs.config({
         Stats: "../libs/Stats/Stats",
         requestAnimationFrame: "../libs/requestAnimationFrame/requestAnimationFrame",
         jquery: "../libs/jquery/jquery.min",
-        underscore: "../libs/underscore/underscore",
         howl: "../libs/howler/howler.min",
         "requirejs-domready": "../libs/requirejs-domready/domReady"
     },
     shim: {
         jquery: {
             exports: "$"
-        },
-        underscore: {
-            exports: "_"
         },
         Stats: {
             exports: "Stats"

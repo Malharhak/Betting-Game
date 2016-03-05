@@ -1,4 +1,5 @@
-define (["canvas", "Vector2"], function () {
+define (["graphics/canvas", "maths/Vector2"], 
+function (canvas, Vector2) {
     var renderingFunctions = {};
 
     renderingFunctions.renderObject = function (renderer) {
@@ -30,7 +31,7 @@ define (["canvas", "Vector2"], function () {
         var position = renderer.position.add(transform.getWorldPosition());
 
         if (typeof renderer.alpha == "number") {
-            renderer.canvasParam.globalAlpha = alpha;
+            renderer.canvasParam.globalAlpha = renderer.alpha;
         }
         this.setCanvasParameters(renderer, position, rotation, scale);
     };

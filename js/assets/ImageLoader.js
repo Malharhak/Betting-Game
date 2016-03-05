@@ -1,6 +1,6 @@
 define([], function () {
     var ImageLoader = function () {
-        this.baseFolder = "images/";
+        this.baseFolder = "img/";
         this.images = {};
         this.imagesToLoad = 0;
         this.imagesLoaded = 0;
@@ -11,8 +11,8 @@ define([], function () {
     };
 
     ImageLoader.prototype.getImage = function (imageName) {
-        if (typeof this.images[name] == "object") {
-            return this.images[name].img;
+        if (typeof this.images[imageName] == "object") {
+            return this.images[imageName].img;
         } else {
             throw new Error("Asked for unknown image: " + imageName);
         }
@@ -31,16 +31,17 @@ define([], function () {
     } **/
     ImageLoader.prototype.addImages = function (imagesList) {
         for (var imageName in imagesList) {
-            var imageUrl = images[i];
+            var imageUrl = imagesList[imageName];
             this.addAnImage(imageName, imageUrl);
         }
     };
 
     ImageLoader.prototype.addAnImage = function (imageName, imageUrl) {
+        console.log("Add image ", imageName, imageUrl);
         var img = new Image();
         this.images[imageName] = {
             img: img,
-            url: url,
+            url: imageUrl,
             loaded: false
         };
         this.imagesToLoad++;
@@ -54,12 +55,13 @@ define([], function () {
         image.addEventListener('load', function (event) {
             self.imageLoaded(imageIndex);
         });
-        img.src = this.images[imageIndex].url;
+        image.src = this.baseFolder + this.images[imageIndex].url;
     };
 
     ImageLoader.prototype.imageLoaded = function (imageIndex) {
         this.images[imageIndex].loaded = true;
+        console.log("loaded image " + this.images[imageIndex].url);
         this.imagesLoaded++;
     };
     return new ImageLoader();
-})
+});

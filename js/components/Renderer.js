@@ -1,7 +1,7 @@
 /** Renderer components
 - Contains all the data needed for an object to be rendered on screen
 **/
-define (["Vector2", "imageLoader", "utils", "renderingFunctions", 
+define (["maths/Vector2", "assets/imageLoader", "utils", "graphics/renderingFunctions", 
     "components/ComponentType", "components/Component"], 
 function (Vector2, imageLoader, utils, renderingFunctions, 
     ComponentType, Component) {
@@ -12,22 +12,22 @@ function (Vector2, imageLoader, utils, renderingFunctions,
         this._id = parameters._id || utils.guid();
         this.position = parameters.position || Vector2.zero();
         this.rotation = parameters.rotation || 0;
-        this.scale = infos.scale || 1;
-        this.imageName  = infos.imageName   || "default";
-        this.imageHandle = imageLoader.get(this.imageName);
-        this.width  = infos.width   || this.imageHandle.width;
-        this.height = infos.height  || this.imageHandle.height;
-        this.pivot  = infos.pivot   || new Vector2(0.5, 0.5);
+        this.scale = parameters.scale || 1;
+        this.imageName  = parameters.imageName   || "default";
+        this.imageHandle = imageLoader.getImage(this.imageName);
+        this.width  = parameters.width   || this.imageHandle.width;
+        this.height = parameters.height  || this.imageHandle.height;
+        this.pivot  = parameters.pivot   || new Vector2(0.5, 0.5);
         // Optional canvas ctx parameters to set before rendering
-        this.canvasParam = infos.canvasParam || {};
-        if (typeof infos.alpha == "number") {
-            this.alpha = infos.alpha;
+        this.canvasParam = parameters.canvasParam || {};
+        if (typeof parameters.alpha == "number") {
+            this.alpha = parameters.alpha;
         } else {
             this.alpha = 1;
         }
-        this.label = infos.label || false;
-        if (infos.slice) {
-            this.slice = infos.slice;
+        this.label = parameters.label || false;
+        if (parameters.slice) {
+            this.slice = parameters.slice;
         }
     };
     Renderer.prototype.componentType = ComponentType.Renderer;
