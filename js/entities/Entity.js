@@ -1,7 +1,6 @@
 /** Entity class
 - Base class for all game entities **/
-define (["components/Transform", "components/world", "utils"], 
-function (Transform, world, utils) {
+define (["Transform", "world", "utils"], function (Transform, world, utils) {
     var Entity = function () {
         this._id = utils.guid();
         this.transform = new Transform();
@@ -20,7 +19,7 @@ function (Transform, world, utils) {
         this.components[componentType] = component;
         component._attachToEntity(this);
     };
-
+    
     Entity.prototype.removeComponent = function (componentName) {
         if (this.hasComponent(componentName)) {
             this.components[componentName].destroy();
