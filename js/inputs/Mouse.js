@@ -25,16 +25,16 @@ define (["maths/Vector2", "inputs/MouseButton", "graphics/canvas", "graphics/Poi
     Mouse.prototype.moveClassic = function (event) {
         var mouseX = event.pageX;
         var mouseY = event.pageY;
-        this.move(new Vector2(mouseX, mouseY));
-        //console.log(x, y);
+        this.commonMove(new Vector2(mouseX, mouseY));
     };
+
     Mouse.prototype.moveFinger = function (event) {
         var mouseX = event.originalEvent.touches[0].pageX;
         var mouseY = event.originalEvent.touches[0].pageY;
-        this.move(new Vector2(mouseX, mouseY));
+        this.commonMove(new Vector2(mouseX, mouseY));
     };
 
-    Mouse.prototype.move = function (mousePosition) {
+    Mouse.prototype.commonMove = function (mousePosition) {
         var offset = canvas.canvas.offset();
         mousePosition.x -= offset.left;
         mousePosition.y -= offset.top;
@@ -47,21 +47,26 @@ define (["maths/Vector2", "inputs/MouseButton", "graphics/canvas", "graphics/Poi
         };
         this.position = new Point(mousePosition);
     };
-    Mouse.prototype.down = function (button, evt) {
-        var btn = assoc[button];
+
+    Mouse.prototype.down = function (buttonId, evt) {
+        var btn = buttonsList[buttonId];
         this.buttons[btn].press();
     };
-    Mouse.prototype.up = function (button, evt) {
-        var btn = assoc[button];
+
+    Mouse.prototype.up = function (buttonId, evt) {
+        var btn = buttonsList[buttonId];
         this.buttons[btn].release();
     };
+
     Mouse.prototype.touchDown = function (evt) {
         this.moveFinger(evt);
         this.buttons.left.press();
     };
+
     Mouse.prototype.touchUp = function (evt) {
         this.buttons.left.release();
     };
+
     Mouse.prototype.tap = function () {
         this.buttons.left.tap();
     };

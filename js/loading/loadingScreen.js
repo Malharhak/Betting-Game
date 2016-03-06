@@ -1,6 +1,6 @@
 /** A very basic loading screen to avoid having a blank page when loading the game assets **/
-define (["assets/imageLoader", "data/assets", "config", "graphics/canvas"], 
-function (imageLoader, assets, config, canvas) {
+define (["assets/imageLoader", "data/assets", "config", "graphics/canvas", "inputs/inputs"], 
+function (imageLoader, assets, config, canvas, inputs) {
 
     var loadingBar = {
         width: 200,
@@ -16,6 +16,7 @@ function (imageLoader, assets, config, canvas) {
     loadingScreen.init = function () {
         imageLoader.setBaseFolder(config.imagesFolder);
         imageLoader.addImages(assets);
+        inputs.init($(window));
         canvas.init(config.canvas);
     };
 

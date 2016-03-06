@@ -4,6 +4,27 @@ define ([], function () {
         this.components = {};
     };
 
+    World.prototype.findEntityByName = function (name) {
+        for (var i in this.entities) {
+            if (this.entities[i].name == name) {
+                return this.entities[i];
+            }
+        }
+        return null;
+    };
+    
+    World.prototype.getActiveScene = function () {
+        if (typeof this.activeScene == "object") {
+            return this.activeScene;
+        } else {
+            throw new Error("There is no active scene.");
+        }
+    };
+
+    World.prototype.setActiveScene = function (scene) {
+        this.activeScene = scene;
+    };
+
     World.prototype.empty = function () {
         this.entities = {};
         this.components = {};

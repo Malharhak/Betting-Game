@@ -5,6 +5,10 @@ function (world, utils) {
 
     };
 
+    Component.prototype.getEntity = function () {
+        return this._entity;
+    };
+    
     Component.prototype.getTransform = function () {
         if (typeof this._entity == "object") {
             return this._entity.transform;

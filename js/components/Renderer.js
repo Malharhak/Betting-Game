@@ -32,6 +32,12 @@ function (Vector2, imageLoader, utils, renderingFunctions,
     };
     Renderer.prototype.componentType = ComponentType.Renderer;
     _.extend(Renderer.prototype, Component.prototype);
+
+    Renderer.prototype.changeImage = function (newImageName) {
+        this.imageName = newImageName;
+        this.imageHandle = imageLoader.getImage(this.imageName);
+    };
+
     Renderer.prototype.render = function () {
         renderingFunctions.renderObject(this);
     };

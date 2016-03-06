@@ -1,8 +1,7 @@
-define (["requestAnimationFrame", "loading/loadingScreen", "game/game", "data/gameScenes", "inputs/inputs"], 
-function (requestAnimationFrame, loadingScreen, game, gameScenes, inputs) {
+define (["requestAnimationFrame", "loading/loadingScreen", "game/game", "inputs/inputs", "game/GameScene", "scenes/gameScenes"], 
+function (requestAnimationFrame, loadingScreen, game, inputs, GameScene, gameScenes) {
 
     var gameloop = {};
-    var currentScene = gameScenes.defaultScene;
 
     // Simple game state machine to show a loading screen until the game is ready.
     var GameStates = {
@@ -12,21 +11,23 @@ function (requestAnimationFrame, loadingScreen, game, gameScenes, inputs) {
 
     var gameState = 0;
 
+    // Simplified game loop during the loading of game assets
     function loading () {
         var changeState = loadingScreen.update();
         loadingScreen.render();
         if (changeState) {
-            currentScene.load();
+            GameScene.currentScene.load();
             gameState++;
         }
     }
+
     function loop () {
         var changeState = false;
         if (gameState == GameStates.Loading) {
             loading();
         } else if (gameState == GameStates.Playing) {
-            currentScene._update();
-            currentScene._render();   
+            GameScene.currentScene._update();
+            GameScene.currentScene._render();   
         }
         inputs._postInputs();
         requestAnimationFrame(loop);

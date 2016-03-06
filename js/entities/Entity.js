@@ -1,12 +1,19 @@
 /** Entity class
 - Base class for all game entities **/
-define (["components/Transform", "entities/world", "utils", "components/componentsLoader"], 
-function (Transform, world, utils, componentsLoader) {
+define (["components/Transform", "entities/world", "utils", "components/componentsLoader", "maths/Vector2"], 
+function (Transform, world, utils, componentsLoader, Vector2) {
     var Entity = function () {
         this._id = utils.guid();
         this.transform = new Transform();
         this.components = {};
+        this.listeners = {};
         world.addEntity(this);
+    };
+
+    Entity.prototype.sendSceneEvent = function (eventName) {
+        if (typeof world.getActiveScene()[eventName] == "function") {
+            world.getActiveScene()[eventName]();
+        }
     };
 
     Entity.prototype.load = function (data) {
@@ -15,12 +22,38 @@ function (Transform, world, utils, componentsLoader) {
             var component = new ComponentClass(data.components[componentType]);
             this.addComponent(componentType, component);
         }
+        if (typeof data.position == "object") {
+            this.transform.position = new Vector2(data.position);
+        }
+        if (typeof data.name == "string") {
+            this.name = data.name;
+        }
+        if (typeof data.tag == "string") {
+            this.tag = data.tag;
+        }
+    };
+
+    Entity.prototype.addEventListener = function (eventName, callback) {
+        if (typeof this.listeners[eventName] != "object") {
+            this.listeners[eventName] = [];
+        }
+        this.listeners[eventName].push(callback);
     };
 
     Entity.prototype.sendMessage = function (eventName) {
+        if (eventName == "mouseUp") {
+            console.log("Entity send message " + eventName);
+        }
+
         for (var i in this.components) {
             if (typeof this.components[i][eventName] == "function") {
                 this.components[i][eventName]();
+            }
+        }
+        if (typeof this.listeners[eventName] == "object") {
+            for (var listenersCounter = 0; listenersCounter < this.listeners[eventName].length; listenersCounter++) {
+                this.listeners[eventName][listenersCounter]();
+                console.log("Called listener");
             }
         }
     };
@@ -46,9 +79,9 @@ function (Transform, world, utils, componentsLoader) {
 
     Entity.prototype.getComponent = function (componentType) {
         if (this.hasComponent(componentType)) {
-            return this.components[componentName];
+            return this.components[componentType];
         } else {
-            throw new Error("The component " + componentName + " does not exist!");
+            throw new Error("The component " + componentType + " does not exist!");
         }
     };
 

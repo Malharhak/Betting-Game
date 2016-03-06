@@ -1,12 +1,24 @@
-define (["entities/world", "entities/Entity", "graphics/canvas"], function (world, Entity, canvas) {
+define (["entities/world", "entities/Entity", "graphics/canvas"], 
+function (world, Entity, canvas) {
 
     var GameScene = function () {
         this.entitiesList = undefined;
+    }; 
+
+    // Static function for changing the current scene
+    GameScene.changeScene = function (newScene) {
+        console.log("Change scene");
+        GameScene.currentScene = newScene;
+        newScene.load();
     };
 
     GameScene.prototype.load = function () {
         world.empty();
         this.loadEntities();
+        if (typeof this.init == "function") {
+            this.init();
+        }
+        world.setActiveScene(this);
     };
 
     GameScene.prototype.loadEntities = function () {
@@ -14,9 +26,8 @@ define (["entities/world", "entities/Entity", "graphics/canvas"], function (worl
             for (var i = 0; i < this.entitiesList.length; i++) {
                 var entity = new Entity();
                 entity.load(this.entitiesList[i]);
-            }    
+            }
         }
-        
     };
 
     GameScene.prototype._update = function () {

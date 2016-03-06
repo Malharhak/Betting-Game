@@ -1,10 +1,10 @@
-define (["graphics/canvas", "maths/Vector2"], 
-function (canvas, Vector2) {
+define (["graphics/canvas", "maths/Vector2", "assets/localizer"], 
+function (canvas, Vector2, localizer) {
     var renderingFunctions = {};
 
     renderingFunctions.renderObject = function (renderer) {
         this.prepareRender(renderer);
-        
+
         var ctx = canvas.ctx;
         var scaledPivot = new Vector2(
             renderer.pivot.x * renderer.width,
@@ -21,7 +21,31 @@ function (canvas, Vector2) {
             dh = renderer.height;
 
         ctx.drawImage(renderer.imageHandle, sx, sy, sw, sh, dx, dy, dw, dh);
+        if (renderer.label) {
+            this.renderLabel(renderer);
+        }
         ctx.restore();
+    };
+
+    renderingFunctions.renderLabel = function (renderer) {
+        var ctx = canvas.ctx;
+        if (renderer.label) {
+            ctx.save();
+            var label = renderer.label;
+            if (typeof label.alpha == "number") {
+                ctx.globalAlpha = label.alpha;
+            }
+            // ctx.scale(scale, scale);
+            ctx.font = label.font;
+            ctx.fillStyle = label.fillStyle || "black";
+            ctx.textAlign = label.textAlign || "center";
+            ctx.textBaseline = label.textBaseline || "middle";
+            if (typeof label.position == "undefined") {
+                label.position = Vector2.zero();
+            }
+            ctx.fillText(localizer.getString(label.text), label.position.x, label.position.y);
+            ctx.restore();
+        }
     };
 
     renderingFunctions.prepareRender = function (renderer) {

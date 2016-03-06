@@ -3,6 +3,7 @@ define ([], function () {
         this.down = false; // The button is being held down
         this.lastDown = true; 
         this.pressed = false; // The button has just been pressed at this frame
+        this.released = false;
     };
 
     MouseButton.prototype.press = function () {
@@ -22,10 +23,12 @@ define ([], function () {
     MouseButton.prototype.release = function () {
         this.down = false;
         this.pressed = false;
+        this.released = true;
     };
 
     MouseButton.prototype.postInputs = function () {
         this.pressed = false;
+        this.released = false;
         this.lastDown = this.down;
     };
 
