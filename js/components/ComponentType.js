@@ -8,7 +8,8 @@ define ([], function () {
         BoardTile: "boardTile",
         Spritesheet: "spritesheet",
         Dice: "dice",
-        Player: "player"
+        Player: "player",
+        CoinsDisplay: "coinsDisplay"
     };
 
     return ComponentType;

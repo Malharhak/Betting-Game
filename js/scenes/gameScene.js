@@ -1,7 +1,7 @@
 define(["game/GameScene", "data/gameEntities", "gameplay/GameBoard", "entities/Entity", 
-    "maths/Vector2", "config"], 
+    "maths/Vector2", "config", "components/ComponentType"], 
 function (GameScene, gameEntities, GameBoard, Entity, 
-    Vector2, config) {
+    Vector2, config, ComponentType) {
 
     var gameScene = new GameScene();
     var gameBoard;
@@ -23,7 +23,8 @@ function (GameScene, gameEntities, GameBoard, Entity,
             components: {
                 renderer: {
                     imageName: "player"
-                }
+                },
+                player: {}
             }
         });
         gameScene.showDice();
@@ -40,7 +41,9 @@ function (GameScene, gameEntities, GameBoard, Entity,
                 },
                 dice: {
                     imageName: "dice_",
-                    resultCallback: gameScene.diceResult
+                    resultCallback: function (result) {
+                        gameScene.diceResult(result);
+                    }
                 }
             }
         });
@@ -48,6 +51,10 @@ function (GameScene, gameEntities, GameBoard, Entity,
 
     gameScene.diceResult = function (result) {
         console.log("Dice result: ", result);
+        var nextTile = gameBoard.getNextTile();
+        player.getComponent(ComponentType.Player).goToNextTile(nextTile, function () {
+            console.log("Woo, player got to next tile");
+        });
     };
 
     return gameScene;
