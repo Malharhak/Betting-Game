@@ -1,13 +1,15 @@
 define ([], function () {
 
     var localizedStrings = {};
-    
+
     localizedStrings.en = {
-        play: "Play"
+        play: "Play",
+        turn: "Turn"
     };
 
     localizedStrings.fr = {
-        play: "Jouer"
+        play: "Jouer",
+        turn: "Tour"
     };
 
     return localizedStrings;

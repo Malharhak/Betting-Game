@@ -10,17 +10,18 @@ function (canvas, Vector2, localizer) {
             renderer.pivot.x * renderer.width,
             renderer.pivot.y * renderer.height
         );
+        if (renderer.imageHandle) {
+            var sx = 0,
+                sy = 0,
+                sw = renderer.width,
+                sh = renderer.height,
+                dx = -scaledPivot.x,
+                dy = -scaledPivot.y,
+                dw = renderer.width,
+                dh = renderer.height;
 
-        var sx = 0,
-            sy = 0,
-            sw = renderer.width,
-            sh = renderer.height,
-            dx = -scaledPivot.x,
-            dy = -scaledPivot.y,
-            dw = renderer.width,
-            dh = renderer.height;
-
-        ctx.drawImage(renderer.imageHandle, sx, sy, sw, sh, dx, dy, dw, dh);
+            ctx.drawImage(renderer.imageHandle, sx, sy, sw, sh, dx, dy, dw, dh);
+        }
         if (renderer.label) {
             this.renderLabel(renderer);
         }
@@ -37,13 +38,20 @@ function (canvas, Vector2, localizer) {
             }
             // ctx.scale(scale, scale);
             ctx.font = label.font;
-            ctx.fillStyle = label.fillStyle || "black";
+            ctx.strokeStyle = label.strokeStyle;
             ctx.textAlign = label.textAlign || "center";
             ctx.textBaseline = label.textBaseline || "middle";
             if (typeof label.position == "undefined") {
                 label.position = Vector2.zero();
             }
-            ctx.fillText(localizer.getString(label.text), label.position.x, label.position.y);
+            if (label.fillStyle) {
+                ctx.fillStyle = label.fillStyle;
+                ctx.fillText(localizer.getString(label.text), label.position.x, label.position.y);
+            }
+            if (label.strokeStyle) {
+                ctx.lineWidth = label.lineWidth;
+                ctx.strokeText(localizer.getString(label.text), label.position.x, label.position.y);
+            }
             ctx.restore();
         }
     };

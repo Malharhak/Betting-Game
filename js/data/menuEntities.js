@@ -1,17 +1,16 @@
 define ([], function () {
-    var menuEntities = [
-        {
+    var menuEntities = {
+        playButton: {
             position : {
                 x: 400,
                 y: 400
             },
-            name: "playButton",
             components: {
                 renderer: {
                     imageName: "button_normal",
                     label: {
-                        font: "48px Arial",
-                        fillStyle: "green",
+                        font: "48px 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                        fillStyle: "white",
                         textAlign: "center",
                         position : {x: 0, y: 0},
                         text: "play"
@@ -25,7 +24,7 @@ define ([], function () {
                 }
             }
         }
-    ];
+    };
 
     return menuEntities;
 });

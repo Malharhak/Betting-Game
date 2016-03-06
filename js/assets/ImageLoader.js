@@ -37,7 +37,6 @@ define([], function () {
     };
 
     ImageLoader.prototype.addAnImage = function (imageName, imageUrl) {
-        console.log("Add image ", imageName, imageUrl);
         var img = new Image();
         this.images[imageName] = {
             img: img,
@@ -60,7 +59,6 @@ define([], function () {
 
     ImageLoader.prototype.imageLoaded = function (imageIndex) {
         this.images[imageIndex].loaded = true;
-        console.log("loaded image " + this.images[imageIndex].url);
         this.imagesLoaded++;
     };
     return new ImageLoader();

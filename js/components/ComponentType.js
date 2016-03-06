@@ -3,7 +3,8 @@ define ([], function () {
         Transform: "transform",
         Renderer: "renderer",
         Inputable: "inputable",
-        GameButton: "gameButton"
+        GameButton: "gameButton",
+        TurnsCounter: "turnsCounter"
     };
 
     return ComponentType;

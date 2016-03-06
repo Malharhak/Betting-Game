@@ -7,7 +7,6 @@ function (world, Entity, canvas) {
 
     // Static function for changing the current scene
     GameScene.changeScene = function (newScene) {
-        console.log("Change scene");
         GameScene.currentScene = newScene;
         newScene.load();
     };
@@ -23,9 +22,9 @@ function (world, Entity, canvas) {
 
     GameScene.prototype.loadEntities = function () {
         if (typeof this.entitiesList == "object") {
-            for (var i = 0; i < this.entitiesList.length; i++) {
-                var entity = new Entity();
-                entity.load(this.entitiesList[i]);
+            for (var name in this.entitiesList) {
+                var entity = new Entity(name);
+                entity.load(this.entitiesList[name]);
             }
         }
     };

@@ -6,7 +6,6 @@ function (GameScene, menuEntities, world, game) {
 
     menuScene.init = function () {
         world.findEntityByName("playButton").addEventListener("mouseUp", function () {
-            console.log("Mouse up on play button");
             game.changeScene("game");
         });
     };

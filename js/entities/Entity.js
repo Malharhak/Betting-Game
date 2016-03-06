@@ -2,8 +2,9 @@
 - Base class for all game entities **/
 define (["components/Transform", "entities/world", "utils", "components/componentsLoader", "maths/Vector2"], 
 function (Transform, world, utils, componentsLoader, Vector2) {
-    var Entity = function () {
+    var Entity = function (name) {
         this._id = utils.guid();
+        this.name = name || this._id;
         this.transform = new Transform();
         this.components = {};
         this.listeners = {};
@@ -41,10 +42,6 @@ function (Transform, world, utils, componentsLoader, Vector2) {
     };
 
     Entity.prototype.sendMessage = function (eventName) {
-        if (eventName == "mouseUp") {
-            console.log("Entity send message " + eventName);
-        }
-
         for (var i in this.components) {
             if (typeof this.components[i][eventName] == "function") {
                 this.components[i][eventName]();
@@ -53,7 +50,6 @@ function (Transform, world, utils, componentsLoader, Vector2) {
         if (typeof this.listeners[eventName] == "object") {
             for (var listenersCounter = 0; listenersCounter < this.listeners[eventName].length; listenersCounter++) {
                 this.listeners[eventName][listenersCounter]();
-                console.log("Called listener");
             }
         }
     };
