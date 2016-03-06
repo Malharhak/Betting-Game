@@ -12,8 +12,10 @@ function (world, Entity, canvas) {
     };
 
     GameScene.prototype.load = function () {
+        console.log("Scene load");
         world.empty();
         this.loadEntities();
+        console.log("no init ?");
         if (typeof this.init == "function") {
             this.init();
         }

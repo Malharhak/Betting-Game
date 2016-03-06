@@ -10,7 +10,7 @@ function (Vector2, imageLoader, utils, renderingFunctions,
         this._addToWorld();
         
         this._id = parameters._id || utils.guid();
-        this.position = parameters.position || Vector2.zero();
+        this.position = new Vector2(parameters.position) || Vector2.zero();
         this.rotation = parameters.rotation || 0;
         this.scale = parameters.scale || 1;
         this.imageName  = parameters.imageName;
@@ -33,14 +33,30 @@ function (Vector2, imageLoader, utils, renderingFunctions,
         if (parameters.slice) {
             this.slice = parameters.slice;
         }
+        if (parameters.animation) {
+            this.setAnimation(parameters.animation);
+        }
+    };
+    Renderer.prototype.componentType = ComponentType.Renderer;
+    _.extend(Renderer.prototype, Component.prototype);
+    
+
+    Renderer.prototype.setAnimation = function (animation) {
+        var target = this;
+        if (animation.target) {
+            target = this[animation.target];
+        }
+        this.launchAnimation(target, animation.duration, animation.properties);
+    };
+
+    Renderer.prototype.launchAnimation = function (target, duration, properties) {
+        TweenLite.to(target, duration, properties);
     };
 
     Renderer.prototype.setLabelText = function (labelText) {
         this.label.text = labelText;
     };
-    
-    Renderer.prototype.componentType = ComponentType.Renderer;
-    _.extend(Renderer.prototype, Component.prototype);
+
 
     Renderer.prototype.changeImage = function (newImageName) {
         this.imageName = newImageName;

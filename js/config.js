@@ -2,8 +2,8 @@ define([], function () {
   var config = {
     canvas : {
       containerId : "#gameContainer",
-      width : 800,
-      height : 800
+      width : 1280,
+      height : 720
     },
     imagesFolder: "img/",
     gameplay: {

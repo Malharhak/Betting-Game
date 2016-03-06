@@ -1,7 +1,7 @@
 define (["components/Transform", "components/Renderer", "components/ComponentType", "components/Inputable", 
-    "components/GameButton", "components/TurnsCounter"], 
+    "components/GameButton", "components/TurnsCounter", "components/BoardTile"], 
 function (Transform, Renderer, ComponentType, Inputable,
-    GameButton, TurnsCounter) {
+    GameButton, TurnsCounter, BoardTile) {
     var componentsLoader = {};
 
     componentsLoader[ComponentType.Transform] = Transform;
@@ -9,6 +9,7 @@ function (Transform, Renderer, ComponentType, Inputable,
     componentsLoader[ComponentType.Inputable] = Inputable;
     componentsLoader[ComponentType.GameButton] = GameButton;
     componentsLoader[ComponentType.TurnsCounter] = TurnsCounter;
+    componentsLoader[ComponentType.BoardTile] = BoardTile;
 
 
     componentsLoader.loadComponentClass = function (componentType) {

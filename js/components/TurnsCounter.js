@@ -4,6 +4,7 @@ function (Component, ComponentType, localizer, config) {
     var turnsPerGame = config.gameplay.turnsPerGame;
 
     var TurnsCounter = function (parameters) {
+        this._addToWorld();
         this.currentTurn = 0;
     };
 

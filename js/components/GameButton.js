@@ -7,6 +7,8 @@ function (Component, ComponentType) {
     };
 
     var GameButton = function (parameters) {
+        this._addToWorld();
+        
         this.normalImage = parameters.normalImage;
         this.overImage = parameters.overImage || this.normalImage;
         this.pressedImage = parameters.pressedImage || this.normalImage;

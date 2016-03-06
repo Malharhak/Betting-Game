@@ -4,7 +4,9 @@ define ([], function () {
         Renderer: "renderer",
         Inputable: "inputable",
         GameButton: "gameButton",
-        TurnsCounter: "turnsCounter"
+        TurnsCounter: "turnsCounter",
+        BoardTile: "boardTile",
+        Spritesheet: "spritesheet"
     };
 
     return ComponentType;

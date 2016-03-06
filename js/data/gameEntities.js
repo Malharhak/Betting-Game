@@ -16,6 +16,18 @@ define ([], function () {
                 },
                 turnsCounter: {},
             }
+        },
+        board: {
+            position: {
+                x: 0,
+                y: 0
+            },
+            components: {
+                renderer: {
+                    imageName: "board",
+                    pivot: {x: 0, y: 0}
+                }
+            }
         }
     };
 
