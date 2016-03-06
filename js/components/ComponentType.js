@@ -7,7 +7,8 @@ define ([], function () {
         TurnsCounter: "turnsCounter",
         BoardTile: "boardTile",
         Spritesheet: "spritesheet",
-        Dice: "dice"
+        Dice: "dice",
+        Player: "player"
     };
 
     return ComponentType;

@@ -3,11 +3,56 @@ define (["data/gameBoardTiles", "entities/world", "entities/Entity", "gameplay/T
 function (gameBoardTiles, world, Entity, TileType, utils, 
     Vector2, config, ComponentType) {
 
-    var delayBetweenTileApparitions = 0.2;
+    var delayBetweenTileApparitions = 0.1;
 
     var GameBoard = function () {
         this.tiles = {};
         this.tilesCounter = 0;
+        this.currentBranch =
+        this.currentTile = 0;
+    };
+
+    GameBoard.prototype.getCurrentTile = function () {
+        return this.currentBranch.tiles[this.currentTile];
+    };
+
+    GameBoard.prototype.getNextTile = function (choice) {
+        if (this.currentTile < this.currentBranch.tiles.length) {
+            return this.currentBranch.tiles[this.currentTile + 1];
+        } else {
+            return this.getNextBranch(choice).tiles[0];
+        }
+    };
+
+    GameBoard.prototype.getBranching = function () {
+        // We will propose branching only if there is a choice for the next branch
+        if (this.currentTile + 1 >= this.currentBranch.tiles.length &&
+            this.currentBranch.branchTo.length > 1) {
+            return this.currentBranch.branchTo;
+        } else {
+            return false;
+        }
+    };
+
+
+    GameBoard.prototype.getNextBranch = function (choice) {
+        var nextBranch;
+        if (this.currentBranch.branchTo.length < 2) {
+            nextBranch = this.tiles[this.currentBranch.branchTo[0]];
+        } else {
+            this.nextBranchChoice = choice;
+            nextBranch = this.tiles[choice];
+        }
+        return nextBranch;
+    };
+
+    GameBoard.prototype.goToNextTile = function () {
+        if (this.getBranching()) {
+            this.currentBranch = this.getNextBranch(this.nextBranchChoice);
+            this.currentTile = 0;
+        } else {
+            this.currentTile++;
+        }
     };
 
     GameBoard.prototype.generateTiles = function (callback) {
@@ -17,6 +62,9 @@ function (gameBoardTiles, world, Entity, TileType, utils,
             var branch = this.createBranch(branchName, branchInfo);
             this.tiles[branchName] = branch;
         }
+        this.currentBranch = this.tiles.start;
+        this.currentTile = 0;
+
         var self = this;
         setTimeout(function () {
             self.showTracks();
@@ -36,7 +84,7 @@ function (gameBoardTiles, world, Entity, TileType, utils,
 
     GameBoard.prototype.generateTile = function (tileInformation) {
         this.tilesCounter++;
-        var delay = this.tilesCounter * 0.2;
+        var delay = this.tilesCounter * delayBetweenTileApparitions;
         var tileData = {
             position: this.randomStartPosition(),
             tag: "tile",

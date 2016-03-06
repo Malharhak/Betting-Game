@@ -3,6 +3,10 @@ define ([], function () {
 
     var utils = {};
 
+    utils.lerp = function (a, b, t) {
+        return (b - a) * t + a;
+    };
+    
     // Returns a single unique ID
     utils.guid = function () {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

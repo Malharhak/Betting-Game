@@ -22,6 +22,14 @@ define ([], function () {
         "coins_5": "ingame/coins/coins_5.png",
         "coins_6": "ingame/coins/coins_6.png",
 
+        // Dices
+        "dice_1": "ingame/dice/dieRed_border1.png",
+        "dice_2": "ingame/dice/dieRed_border2.png",
+        "dice_3": "ingame/dice/dieRed_border3.png",
+        "dice_4": "ingame/dice/dieRed_border4.png",
+        "dice_5": "ingame/dice/dieRed_border5.png",
+        "dice_6": "ingame/dice/dieRed_border6.png",
+
         // Tiles
         "tile_bonus": "ingame/tiles/bonus.png",
         "tile_event": "ingame/tiles/event.png",
