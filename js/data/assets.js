@@ -34,9 +34,16 @@ define ([], function () {
         "tile_bonus": "ingame/tiles/bonus.png",
         "tile_event": "ingame/tiles/event.png",
         "tile_malus": "ingame/tiles/malus.png",
+        "tile_star": "ingame/tiles/star.png",
+        "tile_spawn": "ingame/tiles/spawn.png",
 
         // Menu
-        "menu_title": "menu/title.png"
+        "menu_title": "menu/title.png",
+
+        // Arrows
+        "arrow_normal": "ingame/arrow/arrow_normal.png",
+        "arrow_over": "ingame/arrow/arrow_over.png",
+        "arrow_pressed": "ingame/arrow/arrow_pressed.png",
     };
 
     return assets;

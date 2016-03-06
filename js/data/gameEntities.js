@@ -1,4 +1,4 @@
-define ([], function () {
+define (["config"], function (config) {
     var gameEntities = {
         board: {
             position: {
@@ -27,6 +27,27 @@ define ([], function () {
                     }
                 },
                 turnsCounter: {},
+            }
+        },
+        coinsCounter: {
+            position: {
+                x: config.canvas.width - 50,
+                y: 50
+            },
+            components: {
+                renderer: {
+                    imageName: "coins_1",
+                    pivot: {x: 0.5, y: 0.5},
+                    scale: 0.5,
+                    label: {
+                        font: "60px 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                        fillStyle: "white",
+                        text: "0",
+                        textAlign: "right",
+                        position: {x: -50, y: 0}
+                    }
+                },
+                coinsDisplay: {}
             }
         },
         tracks: {

@@ -91,7 +91,7 @@ function (ComponentType, Component, time, utils) {
 
     Dice.prototype.sendResult = function () {
         this.diceResultCallback(this.currentFace);
-        // this.getEntity().destroy();
+        this.getEntity().destroy();
     };
 
     return Dice;

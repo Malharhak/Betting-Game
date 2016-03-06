@@ -1,7 +1,8 @@
 define(["maths/Vector2", "components/Component", "components/ComponentType"], 
 function (Vector2, Component, ComponentType) {
 
-    var Transform = function () {
+    var Transform = function (entity) {
+        this.entity = entity;
         this._addToWorld();
         
         this.position = new Vector2();

@@ -5,7 +5,7 @@ function (Transform, world, utils, componentsLoader, Vector2) {
     var Entity = function (name) {
         this._id = utils.guid();
         this.name = name || this._id;
-        this.transform = new Transform();
+        this.transform = new Transform(this);
         this.components = {};
         this.listeners = {};
         world.addEntity(this);

@@ -28,7 +28,7 @@ function (gameBoardTiles, world, Entity, TileType, utils,
         // We will propose branching only if there is a choice for the next branch
         if (this.currentTile + 1 >= this.currentBranch.tiles.length &&
             this.currentBranch.branchTo.length > 1) {
-            return this.currentBranch.branchTo;
+            return this.currentBranch.branchData;
         } else {
             return false;
         }
@@ -75,6 +75,7 @@ function (gameBoardTiles, world, Entity, TileType, utils,
         var branch = {};
         branch.branchTo = branchInfo.branchTo;
         branch.content = branchInfo.content;
+        branch.branchData = branchInfo.branchData;
         branch.tiles = [];
         for (var i = 0; i < branch.content.length; i++) {
             branch.tiles.push(this.generateTile(branch.content[i]));
@@ -100,10 +101,10 @@ function (gameBoardTiles, world, Entity, TileType, utils,
                             delay: delay
                         }
                     },
-                    label : {
-                        text: this.getTileText(tileInformation.tileType),
-                        fillStyle: "white"
-                    }
+                    // label : {
+                    //     text: this.getTileText(tileInformation.tileType),
+                    //     fillStyle: "white"
+                    // }
                 },
                 boardTile: {
                     tileType: tileInformation.tileType
@@ -119,7 +120,9 @@ function (gameBoardTiles, world, Entity, TileType, utils,
             x: tileInformation.position.x,
             y: tileInformation.position.y,
             onComplete: function () {
-                self.generateAnimatedCoin(tile);
+                if (tileInformation.tileType != "spawn") {
+                    self.generateAnimatedCoin(tile);
+                }
             }
         });
         return tile;
@@ -162,14 +165,14 @@ function (gameBoardTiles, world, Entity, TileType, utils,
         var coin = new Entity();
         var coinData = {
             tag: "coin",
+            position: {
+                x: 0,
+                y: -50
+            },
             components: {
                 renderer: {
                     imageName: "coins_1",
-                    scale: 0.5,
-                    position: {
-                        x: 0,
-                        y: -50
-                    }
+                    scale: 0.5
                 },
                 spritesheet: {
                     animationKeys: 6,
