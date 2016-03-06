@@ -1,5 +1,6 @@
 /** Helper functions used in various situations **/
 define ([], function () {
+
     var utils = {};
 
     // Returns a single unique ID

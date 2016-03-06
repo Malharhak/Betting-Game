@@ -1,12 +1,12 @@
 define (["data/gameBoardTiles", "entities/Entity", "gameplay/TileType"], function (gameBoardTiles, Entity, TileType) {
     var GameBoard = function () {
-
+        this.tiles = [];
     };
 
     GameBoard.prototype.generateTiles = function () {
         for (var i = 0; i < gameBoardTiles.length; i++) {
             var delay = 0.1 * i;
-            this.generateTile(gameBoardTiles[i], delay);
+            this.tiles.push(this.generateTile(gameBoardTiles[i], delay));
         }
     };
 
@@ -40,8 +40,31 @@ define (["data/gameBoardTiles", "entities/Entity", "gameplay/TileType"], functio
 
         var tile = new Entity();
         tile.load(tileData);
+        this.generateAnimatedCoin(tile);
+        return tile;
     };
-    
+
+    GameBoard.prototype.generateAnimatedCoin = function (tile) {
+        var coin = new Entity();
+        var coinData = {
+            tag: "coin",
+            components: {
+                renderer: {
+                    imageName: "coins_1",
+                    scale: 0.5
+                },
+                spritesheet: {
+                    animationKeys: 6,
+                    imageName: "coins_",
+                    animationMode: "loop"
+                }
+            }
+        };
+        coin.load(coinData);
+        coin.transform.setParent(tile.transform);
+        return coin;
+    };
+
     GameBoard.prototype.getTileText = function (tileType) {
         if (tileType == TileType.Bonus) {
             return "+1";

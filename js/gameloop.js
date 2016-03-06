@@ -1,5 +1,7 @@
-define (["requestAnimationFrame", "loading/loadingScreen", "game/game", "inputs/inputs", "game/GameScene", "scenes/gameScenes"], 
-function (requestAnimationFrame, loadingScreen, game, inputs, GameScene, gameScenes) {
+define (["requestAnimationFrame", "loading/loadingScreen", "game/game", "inputs/inputs", 
+    "game/GameScene", "scenes/gameScenes", "game/time"], 
+function (requestAnimationFrame, loadingScreen, game, inputs, 
+    GameScene, gameScenes, time) {
 
     var gameloop = {};
 
@@ -22,6 +24,7 @@ function (requestAnimationFrame, loadingScreen, game, inputs, GameScene, gameSce
     }
 
     function loop () {
+        time.preUpdate();
         var changeState = false;
         if (gameState == GameStates.Loading) {
             loading();

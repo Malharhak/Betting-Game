@@ -20,6 +20,10 @@ function (Vector2, Component, ComponentType) {
         this.rotation += rotationAmount;
     };
 
+    Transform.prototype.setParent = function (parent) {
+        this.parent = parent;
+        parent.children = this;
+    };
     // World attributes are the local position, rotation, scale,
     // But with the parent's attributes added to them 
     Transform.prototype.getWorldPosition = function () {

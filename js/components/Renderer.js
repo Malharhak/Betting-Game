@@ -39,7 +39,7 @@ function (Vector2, imageLoader, utils, renderingFunctions,
     };
     Renderer.prototype.componentType = ComponentType.Renderer;
     _.extend(Renderer.prototype, Component.prototype);
-    
+
 
     Renderer.prototype.setAnimation = function (animation) {
         var target = this;
@@ -61,6 +61,8 @@ function (Vector2, imageLoader, utils, renderingFunctions,
     Renderer.prototype.changeImage = function (newImageName) {
         this.imageName = newImageName;
         this.imageHandle = imageLoader.getImage(this.imageName);
+        this.width = this.imageHandle.width;
+        this.height = this.imageHandle.height;
     };
 
     Renderer.prototype.render = function () {
