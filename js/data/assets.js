@@ -11,6 +11,8 @@ define ([], function () {
 
         // Ingame
         "turns_box": "ingame/turns_box.png",
+        "tracks": "ingame/tracks.png",
+        "player": "ingame/player.png",
 
         // Coins
         "coins_1": "ingame/coins/coins_1.png",

@@ -28,6 +28,16 @@ define ([], function () {
                     pivot: {x: 0, y: 0}
                 }
             }
+        },
+        tracks: {
+            position: {x: 0, y: 0},
+            components: {
+                renderer: {
+                    imageName: "tracks",
+                    pivot: {x: 0, y: 0},
+                    alpha: 0
+                }
+            }
         }
     };
 

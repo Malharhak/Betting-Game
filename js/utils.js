@@ -11,6 +11,18 @@ define ([], function () {
         });
     };
 
+    utils.randomInterval = function (min, max) {
+        return Math.random() * (max - min) + min;
+    };
+
+    utils.randomChances = function (chances) {
+        if (Math.floor(Math.random() * chances) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     // Simple aabb collision detection
     utils.aabb = function (x1, x2, y1, y2, w1, w2, h1, h2) {
         if ( x1 + w1 < x2 || 
