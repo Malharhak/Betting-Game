@@ -5,7 +5,7 @@ This is a sample game with a betting system made in 48 hours.
 ##Screenshots
 
 ![Menu](/screenshots/menu.png?raw=true "Menu")
-![Ingame](/screenshots/game.png?raw=true "Ingame")
+![Ingame](/screenshots/ingame.png?raw=true "Ingame")
 ##Launch
 
 The game is just an html page, it should run on any local server.
