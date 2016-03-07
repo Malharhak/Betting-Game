@@ -1,7 +1,9 @@
 define(["game/game", "game/GameScene", "data/gameEntities", "gameplay/GameBoard", "entities/Entity", 
-    "maths/Vector2", "config", "components/ComponentType", "game/gameStatistics", "entities/world"], 
+    "maths/Vector2", "config", "components/ComponentType", "game/gameStatistics", "entities/world",
+    "assets/soundLoader"], 
 function (game, GameScene, gameEntities, GameBoard, Entity, 
-    Vector2, config, ComponentType, gameStatistics, world) {
+    Vector2, config, ComponentType, gameStatistics, world,
+    soundLoader) {
 
     var gameScene = new GameScene();
     var gameBoard;
@@ -127,6 +129,7 @@ function (game, GameScene, gameEntities, GameBoard, Entity,
             var tileCoin = nextTile.transform.children;
             gameScene.pickupAnimation(tileCoin.getWorldPosition());
             tileCoin.entity.destroy();
+            soundLoader.get('coin').play();
         }
     };
 
@@ -168,21 +171,27 @@ function (game, GameScene, gameEntities, GameBoard, Entity,
         switch (tileType) {
             case "bonus":
                 gameScene.pickupCoins(config.gameplay.tiles.coinsPerBonus, finishProcessingCallback);
+                soundLoader.get("coin").play();
                 break;
             case "star":
                 gameScene.pickupCoins(config.gameplay.tiles.coinsPerStar, finishProcessingCallback);
+                soundLoader.get("star").play();
                 break;
             case "malus":
                 gameScene.loseCoins(config.gameplay.tiles.coinsPerMalus, finishProcessingCallback);
+                soundLoader.get("fail").play();
                 break;
             case "jackpot":
                 gameScene.pickupCoins(config.gameplay.tiles.coinsPerJackpot, finishProcessingCallback);
+                soundLoader.get("star").play();
                 break;
             case "lucky":
                 gameScene.pickupCoins(config.gameplay.tiles.coinsPerLucky, finishProcessingCallback);
+                soundLoader.get("star").play();
                 break;
             case "death":
                 this.finishGame();
+                soundLoader.get("fail").play();
                 return;
             default:
                 finishProcessingCallback();
@@ -191,8 +200,14 @@ function (game, GameScene, gameEntities, GameBoard, Entity,
     };
 
     gameScene.pickupCoins = function (amount, callback) {
-        var timeBetweenPickups = 10;
+        var timeBetweenPickups = 0.3 * 1000;
         var self = this;
+        if (amount > 3) {
+            timeBetweenPickups /= 3;
+        }
+        if (amount > 10) {
+            timeBetweenPickups /= 10;
+        }
         for (var i = 0; i < amount; i++) {
             setTimeout(self.generatePickupAnimation(), i * timeBetweenPickups);
         }
@@ -200,12 +215,13 @@ function (game, GameScene, gameEntities, GameBoard, Entity,
     };
     gameScene.generatePickupAnimation = function () {
         return function () {
+            soundLoader.get("coin").play();
             gameScene.pickupAnimation(player.transform.position);
         };
     };
 
     gameScene.loseCoins = function (amount, callback) {
-        var timeBetweenLoss = 10;
+        var timeBetweenLoss = 0.1 * 1000;
         var self = this;
         for (var i = 0; i < amount; i++) {
             setTimeout(gameScene.generateLoseCoinAnimation(), i * timeBetweenLoss);

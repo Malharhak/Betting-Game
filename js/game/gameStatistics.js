@@ -1,4 +1,7 @@
-define(["config"], function (config) {
+define(["config", "assets/soundLoader", "game/time"], 
+function (config, soundLoader, time) {
+
+
     var gameStatistics = {
         betAmount: 10,
         collectedCoins: 0,
@@ -11,6 +14,7 @@ define(["config"], function (config) {
         if (gameStatistics.collectedCoins < 0) {
             gameStatistics.collectedCoins = 0;
         }
+
         this.updateMoneyWon();
     };
 

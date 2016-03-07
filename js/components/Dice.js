@@ -1,5 +1,5 @@
-define (["components/ComponentType", "components/Component", "game/time", "utils"],
-function (ComponentType, Component, time, utils) {
+define (["components/ComponentType", "components/Component", "game/time", "utils", "assets/soundLoader"],
+function (ComponentType, Component, time, utils, soundLoader) {
 
     var diceDuration = 4;
     var minSpeed = 0.4;
@@ -35,6 +35,7 @@ function (ComponentType, Component, time, utils) {
         this.launchTime = time.time;
         this.lastChange = time.time;
         this.launched = true;
+        soundLoader.get("dice").play();
         TweenLite.to(this, diceDuration, {
             diceSpeed: minSpeed,
             ease: Circ.easeInOut
@@ -69,6 +70,7 @@ function (ComponentType, Component, time, utils) {
         this.currentFace = this.chooseRandomFace();
         this.lastChange = time.time;
         this.getEntity().getComponent(ComponentType.Renderer).changeImage(this.imageName + this.currentFace);
+        soundLoader.get("diceTick").play();
     };
 
 
@@ -87,6 +89,7 @@ function (ComponentType, Component, time, utils) {
     };
 
     Dice.prototype.blink = function () {
+        soundLoader.get("diceFinish").play();
         var renderer = this.getEntity().getComponent(ComponentType.Renderer);
         var self = this;
         renderer.alpha = 0;

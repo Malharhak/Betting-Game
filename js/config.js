@@ -6,6 +6,7 @@ define([], function () {
       height : 720
     },
     imagesFolder: "img/",
+    soundsFolder: "snd/",
     gameplay: {
         turnsPerGame: 5,
         minimumBet: 10,
@@ -18,7 +19,8 @@ define([], function () {
             coinsPerJackpot: 777,
             coinsPerLucky: 100
         }
-    }
+    },
+    debug: false
   };
 
   return config;
