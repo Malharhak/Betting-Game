@@ -8,13 +8,13 @@ define ([], function () {
                     destinationBranch: "branch_1",
                     destinationTile: 0,
                     position: {x: 1056, y: 136},
-                    angle: Math.PI
+                    angle: -Math.PI / 2
                 },
                 {
                     destinationBranch: "branch_2",
                     destinationTile: 0,
                     position: {x: 989, y: 274},
-                    angle: -Math.PI
+                    angle: Math.PI / 2
                 }
             ],
             content: [
@@ -53,13 +53,13 @@ define ([], function () {
                     destinationBranch: "branch_final",
                     destinationTile: 0,
                     position: {x: 195, y: 325},
-                    angle: 0
+                    angle: -Math.PI / 2
                 },
                 {
                     destinationBranch: "branch_3",
                     destinationTile: 0,
                     position: {x: 130, y: 386},
-                    angle: -Math.PI / 2
+                    angle: 0
                 },
                 {
                     destinationBranch: "start",
@@ -85,7 +85,7 @@ define ([], function () {
                     destinationBranch: "branch_final",
                     destinationTile: 1,
                     position: {x: 519, y: 555},
-                    angle: Math.PI
+                    angle: - 3 * Math.PI / 4 
                 }
             ],
             content: [

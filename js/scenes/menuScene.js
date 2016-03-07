@@ -5,8 +5,10 @@ function (GameScene, menuEntities, world, game, gameStatistics, soundLoader) {
     menuScene.entitiesList = menuEntities;
 
     menuScene.init = function () {
+        var music = soundLoader.get("endMusic").play();
         world.findEntityByName("playButton").addEventListener("mouseUp", function () {
             soundLoader.get("button").play();
+            music.pause();
             game.changeScene("game");
         });
         world.findEntityByName("minusButton").addEventListener("mouseUp", function () {

@@ -12,6 +12,9 @@ function (Vector2, imageLoader, utils, renderingFunctions,
         this._id = parameters._id || utils.guid();
         this.position = new Vector2(parameters.position) || Vector2.zero();
         this.rotation = parameters.rotation || 0;
+        if (this.rotation != 0) {
+            console.log(this.rotation);
+        }
         this.scale = parameters.scale || 1;
         this.imageName  = parameters.imageName;
         if (this.imageName) {

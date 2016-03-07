@@ -96,7 +96,8 @@ function (game, GameScene, gameEntities, GameBoard, Entity,
                         animation: {
                             duration: 0.5,
                             properties: {
-                                scale: 1,
+                                scale: 1.5,
+                                rotation: branching[i].angle,
                                 ease: Expo.easeOut
                             }
                         }
@@ -200,10 +201,10 @@ function (game, GameScene, gameEntities, GameBoard, Entity,
     };
 
     gameScene.pickupCoins = function (amount, callback) {
-        var timeBetweenPickups = 0.3 * 1000;
+        var timeBetweenPickups = 0.2 * 1000;
         var self = this;
         if (amount > 3) {
-            timeBetweenPickups /= 3;
+            timeBetweenPickups /= 2;
         }
         if (amount > 10) {
             timeBetweenPickups /= 10;

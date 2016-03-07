@@ -59,7 +59,7 @@ function (canvas, Vector2, localizer) {
     renderingFunctions.prepareRender = function (renderer) {
         var transform = renderer.getTransform();
         var scale = renderer.scale * transform.getWorldScale();
-        var rotation = renderer.rotation + transform.getWorldRotation();
+        var rotation = renderer.rotation;
         var position = renderer.position.add(transform.getWorldPosition());
 
         if (typeof renderer.alpha == "number") {
@@ -71,7 +71,9 @@ function (canvas, Vector2, localizer) {
     renderingFunctions.setCanvasParameters = function (renderer, position, rotation, scale) {
         var ctx = canvas.ctx;
         ctx.save();
-
+        if (rotation !== 0) {
+            console.log(rotation);
+        }
         for (var i in renderer.canvasParam) {
             ctx[i] = renderer.canvasParam[i];
         }
