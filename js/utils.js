@@ -3,6 +3,13 @@ define ([], function () {
 
     var utils = {};
 
+    // Let's directly extend Math since this is maths
+    Math.clamp = function (min, max, val) {
+        if (val < min) val = min;
+        if (val > max) val = max;
+        return val;
+    };
+
     utils.lerp = function (a, b, t) {
         return (b - a) * t + a;
     };

@@ -32,6 +32,11 @@ function (Transform, world, utils, componentsLoader, Vector2) {
         if (typeof data.tag == "string") {
             this.tag = data.tag;
         }
+        for (var i in this.components) {
+            if (typeof this.components[i].start == "function") {
+                this.components[i].start();
+            }
+        }
     };
 
     Entity.prototype.addEventListener = function (eventName, callback) {

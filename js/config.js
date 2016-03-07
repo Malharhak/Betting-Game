@@ -10,11 +10,13 @@ define([], function () {
         turnsPerGame: 5,
         minimumBet: 10,
         maximumBet: 100,
+        betStep: 10,
         tiles: {
             coinsPerBonus: 3,
             coinsPerStar: 10,
             coinsPerMalus: 3,
-            coinsPerJackpot: 777
+            coinsPerJackpot: 777,
+            coinsPerLucky: 100
         }
     }
   };

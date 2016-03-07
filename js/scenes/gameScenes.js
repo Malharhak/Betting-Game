@@ -1,9 +1,10 @@
-define (["game/GameScene", "game/game", "scenes/menuScene", "scenes/gameScene"], 
-function (GameScene, game, menuScene, gameScene) {
+define (["game/GameScene", "game/game", "scenes/menuScene", "scenes/gameScene", "scenes/endScene"], 
+function (GameScene, game, menuScene, gameScene, endScene) {
     var gameScenes = {};
     gameScenes.availableScenes = {
         menu: menuScene,
-        game: gameScene
+        game: gameScene,
+        end: endScene
     };
 
     gameScenes.defaultScene = gameScenes.availableScenes.menu;

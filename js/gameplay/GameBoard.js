@@ -57,7 +57,12 @@ function (gameBoardTiles, world, Entity, TileType, utils,
             this.currentBranch = this.getNextBranch(this.nextBranchChoice);
             this.currentTile = this.nextBranchChoice.destinationTile;
         } else {
-            this.currentTile++;
+            if (this.currentTile + 1 >= this.currentBranch.tiles.length) {
+                this.currentTile = this.currentBranch.branchData[0].destinationTile;
+                this.currentBranch = this.getNextBranch();
+            } else {
+                this.currentTile++;
+            }
         }
     };
 
@@ -126,7 +131,7 @@ function (gameBoardTiles, world, Entity, TileType, utils,
             x: tileInformation.position.x,
             y: tileInformation.position.y,
             onComplete: function () {
-                if (tileInformation.tileType != "spawn" && tileInformation.tileType != "malus") {
+                if (tileInformation.tileType != "spawn" && tileInformation.tileType != "malus" && tileInformation.tileType != "death") {
                     self.generateAnimatedCoin(tile);
                 }
             }

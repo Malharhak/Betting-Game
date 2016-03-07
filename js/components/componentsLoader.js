@@ -1,9 +1,11 @@
 define (["components/Transform", "components/Renderer", "components/ComponentType", "components/Inputable", 
     "components/GameButton", "components/TurnsCounter", "components/BoardTile", "components/Spritesheet",
-    "components/Dice", "components/Player", "components/CoinsDisplay"], 
+    "components/Dice", "components/Player", "components/CoinsDisplay", "components/BettingDisplay",
+    "components/FoundCoinsDisplay", "components/MoneyMadeDisplay"], 
 function (Transform, Renderer, ComponentType, Inputable,
     GameButton, TurnsCounter, BoardTile, Spritesheet,
-    Dice, Player, CoinsDisplay) {
+    Dice, Player, CoinsDisplay, BettingDisplay,
+    FoundCoinsDisplay, MoneyMadeDisplay) {
     var componentsLoader = {};
 
     componentsLoader[ComponentType.Transform] = Transform;
@@ -16,6 +18,9 @@ function (Transform, Renderer, ComponentType, Inputable,
     componentsLoader[ComponentType.Dice] = Dice;
     componentsLoader[ComponentType.Player] = Player;
     componentsLoader[ComponentType.CoinsDisplay] = CoinsDisplay;
+    componentsLoader[ComponentType.BettingDisplay] = BettingDisplay;
+    componentsLoader[ComponentType.FoundCoinsDisplay] = FoundCoinsDisplay;
+    componentsLoader[ComponentType.MoneyMadeDisplay] = MoneyMadeDisplay;
 
 
 

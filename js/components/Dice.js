@@ -14,7 +14,20 @@ function (ComponentType, Component, time, utils) {
         this.currentFace = 1;
         this.launched = false;
         this.finished = false;
+
     };
+
+    Dice.prototype.start = function () {
+        var transform = this.getTransform();
+        this.turnFeedbackTween = TweenMax.to(transform, 0.7, {
+            scale: 1.1,
+            ease: Back.easeInOut,
+            repeat: -1,
+            yoyo: true,
+            repeatDelay: 0
+        });
+    };
+
     Dice.prototype.componentType = ComponentType.Dice;
     _.extend(Dice.prototype, Component.prototype);
 
@@ -31,6 +44,8 @@ function (ComponentType, Component, time, utils) {
     Dice.prototype.mouseUp = function () {
         if (!this.launched && !this.finished) {
             this.launch();
+            this.turnFeedbackTween.repeat = false;
+            this.turnFeedbackTween.reverse();
         }
     };
 

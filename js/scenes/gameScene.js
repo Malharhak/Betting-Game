@@ -1,6 +1,6 @@
-define(["game/GameScene", "data/gameEntities", "gameplay/GameBoard", "entities/Entity", 
+define(["game/game", "game/GameScene", "data/gameEntities", "gameplay/GameBoard", "entities/Entity", 
     "maths/Vector2", "config", "components/ComponentType", "game/gameStatistics", "entities/world"], 
-function (GameScene, gameEntities, GameBoard, Entity, 
+function (game, GameScene, gameEntities, GameBoard, Entity, 
     Vector2, config, ComponentType, gameStatistics, world) {
 
     var gameScene = new GameScene();
@@ -34,7 +34,7 @@ function (GameScene, gameEntities, GameBoard, Entity,
         console.log("It's dice time");
         var dice = new Entity("dice");
         dice.load({
-            position: new Vector2(config.canvas.width / 2, config.canvas.height / 2),
+            position: new Vector2(config.canvas.width / 2, 180),
             components: {
                 inputable: {},
                 renderer: {
@@ -173,12 +173,17 @@ function (GameScene, gameEntities, GameBoard, Entity,
                 gameScene.pickupCoins(config.gameplay.tiles.coinsPerStar, finishProcessingCallback);
                 break;
             case "malus":
-                gameStatistics.collectedCoins -= config.gameplay.tiles.coinsPerMalus;
-                finishProcessingCallback();
+                gameScene.loseCoins(config.gameplay.tiles.coinsPerMalus, finishProcessingCallback);
                 break;
             case "jackpot":
                 gameScene.pickupCoins(config.gameplay.tiles.coinsPerJackpot, finishProcessingCallback);
                 break;
+            case "lucky":
+                gameScene.pickupCoins(config.gameplay.tiles.coinsPerLucky, finishProcessingCallback);
+                break;
+            case "death":
+                this.finishGame();
+                return;
             default:
                 finishProcessingCallback();
                 break;
@@ -186,7 +191,7 @@ function (GameScene, gameEntities, GameBoard, Entity,
     };
 
     gameScene.pickupCoins = function (amount, callback) {
-        var timeBetweenPickups = 1;
+        var timeBetweenPickups = 10;
         var self = this;
         for (var i = 0; i < amount; i++) {
             setTimeout(self.generatePickupAnimation(), i * timeBetweenPickups);
@@ -199,10 +204,61 @@ function (GameScene, gameEntities, GameBoard, Entity,
         };
     };
 
+    gameScene.loseCoins = function (amount, callback) {
+        var timeBetweenLoss = 10;
+        var self = this;
+        for (var i = 0; i < amount; i++) {
+            setTimeout(gameScene.generateLoseCoinAnimation(), i * timeBetweenLoss);
+        }
+        setTimeout(callback, amount * timeBetweenLoss);
+    };
+    gameScene.generateLoseCoinAnimation = function () {
+        return function () {
+            gameScene.loseCoinsAnimation();
+        };
+    };
+    gameScene.loseCoinsAnimation = function () {
+        var counterPosition = world.findEntityByName("coinsCounter").transform.position;
+        var coin = new Entity();
+        coin.load({
+            position: new Vector2(counterPosition),
+            components: {
+                renderer: {
+                    scale: 0.5,
+                    imageName: "coins_1"
+                }
+            }
+        });
+        var downPosition = counterPosition.add(new Vector2(0, 100));
+        var coinRenderer = coin.getComponent(ComponentType.Renderer);
+        TweenLite.to(coin.transform.position, 0.5, {
+            x: downPosition.x,
+            y: downPosition.y,
+            ease: Expo.easeInOut,
+            onComplete: function () {
+                gameStatistics.addCoins(-1);
+                TweenLite.to(coinRenderer, 1, {
+                    alpha: 0,
+                    ease: Circ.easeOut, onComplete: function () {
+                        coin.destroy();
+                    }
+                });
+            }
+        });
+    };
+
     gameScene.finishTurn = function () {
         console.log("Everything is done, let's finish the turn!");
         gameStatistics.nextTurn();
+        if (gameStatistics.currentTurn > config.gameplay.turnsPerGame) {
+            this.finishGame();
+            return;
+        }
         gameScene.showDice();
+    };
+
+    gameScene.finishGame = function () {
+        game.changeScene("end");
     };
 
     return gameScene;

@@ -32,7 +32,9 @@ define ([], function () {
 
     World.prototype.update = function () {
         for (var i in this.entities) {
-            this.entities[i].sendMessage("update");
+            if (typeof this.entities[i] == "object") {
+                this.entities[i].sendMessage("update");
+            }
         }
     };
 

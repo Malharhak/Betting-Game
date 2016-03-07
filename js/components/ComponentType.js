@@ -9,7 +9,10 @@ define ([], function () {
         Spritesheet: "spritesheet",
         Dice: "dice",
         Player: "player",
-        CoinsDisplay: "coinsDisplay"
+        CoinsDisplay: "coinsDisplay",
+        BettingDisplay: "bettingDisplay",
+        FoundCoinsDisplay: "foundCoinsDisplay",
+        MoneyMadeDisplay: "moneyMadeDisplay"
     };
 
     return ComponentType;

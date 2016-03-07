@@ -1,10 +1,22 @@
 define ([], function () {
     var assets = {
 
+        // Menu
         "board_tile": "board_tile.png",
         "button_normal": "button_normal.png",
         "button_pressed": "button_pressed.png",
         "button_over": "button_over.png",
+        "plus_normal": "menu/plus.png",
+        "plus_over": "menu/plus_over.png",
+        "plus_pressed": "menu/plus_pressed.png",
+        "minus_normal": "menu/minus.png",
+        "minus_over": "menu/minus_over.png",
+        "minus_pressed": "menu/minus_pressed.png",
+        "menu_title": "menu/title.png",
+        "text_zone": "menu/text_zone.png",
+        "menu_info": "menu/info.png",
+
+        "blank": "blank.png",
 
         // Board
         "board": "board.png",
@@ -36,10 +48,10 @@ define ([], function () {
         "tile_malus": "ingame/tiles/malus.png",
         "tile_star": "ingame/tiles/star.png",
         "tile_spawn": "ingame/tiles/spawn.png",
+        "tile_neutral": "ingame/tiles/spawn.png",
         "tile_jackpot": "ingame/tiles/jackpot.png",
-
-        // Menu
-        "menu_title": "menu/title.png",
+        "tile_death":   "ingame/tiles/death.png",
+        "tile_lucky":   "ingame/tiles/lucky.png",
 
         // Arrows
         "arrow_normal": "ingame/arrow/arrow_normal.png",
