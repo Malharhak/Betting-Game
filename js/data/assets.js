@@ -36,6 +36,7 @@ define ([], function () {
         "tile_malus": "ingame/tiles/malus.png",
         "tile_star": "ingame/tiles/star.png",
         "tile_spawn": "ingame/tiles/spawn.png",
+        "tile_jackpot": "ingame/tiles/jackpot.png",
 
         // Menu
         "menu_title": "menu/title.png",

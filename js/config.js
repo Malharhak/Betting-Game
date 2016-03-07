@@ -9,7 +9,13 @@ define([], function () {
     gameplay: {
         turnsPerGame: 5,
         minimumBet: 10,
-        maximumBet: 100
+        maximumBet: 100,
+        tiles: {
+            coinsPerBonus: 3,
+            coinsPerStar: 10,
+            coinsPerMalus: 3,
+            coinsPerJackpot: 777
+        }
     }
   };
 

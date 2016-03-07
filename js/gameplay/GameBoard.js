@@ -3,7 +3,7 @@ define (["data/gameBoardTiles", "entities/world", "entities/Entity", "gameplay/T
 function (gameBoardTiles, world, Entity, TileType, utils, 
     Vector2, config, ComponentType) {
 
-    var delayBetweenTileApparitions = 0.1;
+    var delayBetweenTileApparitions = 0.06;
 
     var GameBoard = function () {
         this.tiles = {};
@@ -17,10 +17,13 @@ function (gameBoardTiles, world, Entity, TileType, utils,
     };
 
     GameBoard.prototype.getNextTile = function (choice) {
-        if (this.currentTile < this.currentBranch.tiles.length) {
+        console.log("get next tile ", choice);
+        if (this.currentTile + 1 < this.currentBranch.tiles.length) {
             return this.currentBranch.tiles[this.currentTile + 1];
         } else {
-            return this.getNextBranch(choice).tiles[0];
+            var nextBranch = this.getNextBranch(choice);
+            console.log("got branch ", nextBranch);
+            return nextBranch.tiles[0];
         }
     };
 
@@ -36,12 +39,15 @@ function (gameBoardTiles, world, Entity, TileType, utils,
 
 
     GameBoard.prototype.getNextBranch = function (choice) {
+        console.log("Get next branch ", choice);
         var nextBranch;
         if (this.currentBranch.branchTo.length < 2) {
+            console.log("Only one choice, izi");
             nextBranch = this.tiles[this.currentBranch.branchTo[0]];
         } else {
+            console.log("two choices");
             this.nextBranchChoice = choice;
-            nextBranch = this.tiles[choice];
+            nextBranch = this.tiles[choice.destinationBranch];
         }
         return nextBranch;
     };
@@ -49,7 +55,7 @@ function (gameBoardTiles, world, Entity, TileType, utils,
     GameBoard.prototype.goToNextTile = function () {
         if (this.getBranching()) {
             this.currentBranch = this.getNextBranch(this.nextBranchChoice);
-            this.currentTile = 0;
+            this.currentTile = this.nextBranchChoice.destinationTile;
         } else {
             this.currentTile++;
         }
@@ -120,7 +126,7 @@ function (gameBoardTiles, world, Entity, TileType, utils,
             x: tileInformation.position.x,
             y: tileInformation.position.y,
             onComplete: function () {
-                if (tileInformation.tileType != "spawn") {
+                if (tileInformation.tileType != "spawn" && tileInformation.tileType != "malus") {
                     self.generateAnimatedCoin(tile);
                 }
             }

@@ -3,7 +3,7 @@ function (ComponentType, Component, time, utils) {
 
     var diceDuration = 4;
     var minSpeed = 0.4;
-    var maxSpeed = 0.001;
+    var maxSpeed = 0.005;
 
     var Dice = function (parameters) {
         this._addToWorld();
@@ -24,7 +24,7 @@ function (ComponentType, Component, time, utils) {
         this.launched = true;
         TweenLite.to(this, diceDuration, {
             diceSpeed: minSpeed,
-            ease: Expo.easeOut
+            ease: Circ.easeInOut
         });
     };
 
@@ -58,7 +58,7 @@ function (ComponentType, Component, time, utils) {
 
 
     Dice.prototype.chooseRandomFace = function () {
-        var face = Math.floor(utils.randomInterval(1, 6));
+        var face = Math.floor(utils.randomInterval(1, 7));
         if (face == this.currentFace) {
             return this.chooseRandomFace();
         }
