@@ -15,7 +15,7 @@ define([], function () {
         tiles: {
             coinsPerBonus: 3,
             coinsPerStar: 10,
-            coinsPerMalus: 3,
+            coinsPerMalus: 5,
             coinsPerJackpot: 777,
             coinsPerLucky: 100
         }

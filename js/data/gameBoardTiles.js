@@ -53,19 +53,19 @@ define ([], function () {
                     destinationBranch: "branch_final",
                     destinationTile: 0,
                     position: {x: 195, y: 325},
-                    angle: -Math.PI / 2
+                    angle: 0
                 },
                 {
                     destinationBranch: "branch_3",
-                    destinationTile: 0,
+                    destinationTile: Math.PI / 2,
                     position: {x: 130, y: 386},
-                    angle: 0
+                    angle: Math.PI / 2
                 },
                 {
                     destinationBranch: "start",
                     destinationTile: 0,
                     position: {x: 87, y: 252},
-                    angle: Math.PI / 2
+                    angle: -Math.PI / 2
                 }
             ],
             content: [
